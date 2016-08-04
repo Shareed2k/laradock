@@ -3,6 +3,12 @@
 # Image Setup
 #--------------------------------------------------------------------------
 #
+# To edit the 'workspace' base Image, visit its repository on Github
+#    https://github.com/LaraDock/workspace
+#
+# To change its version, see the available Tags on the Docker Hub:
+#    https://hub.docker.com/r/laradock/workspace/tags/
+#
 
 FROM laradock/workspace:1.0
 
@@ -61,6 +67,7 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
 ;fi
 
 #####################################
+<<<<<<< HEAD
 # Compass:
 #####################################
 
@@ -75,6 +82,8 @@ RUN if [ ${INSTALL_COMPASS} = true ]; then \
 ;fi
 
 #####################################
+=======
+>>>>>>> develop
 # Non-Root User:
 #####################################
 
@@ -84,17 +93,30 @@ ARG PGID=1000
 RUN groupadd -g $PGID laradock && \
     useradd -u $PUID -g laradock -m laradock
     
+<<<<<<< HEAD
 # Now switch to our laradock user for the rest of user setup
 USER laradock
 
+=======
+>>>>>>> develop
 #####################################
 # Composer:
 #####################################
 
 # Add the composer.json
+<<<<<<< HEAD
 ADD ./composer.json /home/laradock/.composer/composer.json
 
 # Check if global install need to be runned
+=======
+COPY ./composer.json /home/laradock/.composer/composer.json
+
+# Make sure that ~/.composer belongs to laradock
+RUN chown -R laradock:laradock /home/laradock/.composer
+USER laradock
+
+# Check if global install need to be ran
+>>>>>>> develop
 ARG COMPOSER_GLOBAL_INSTALL=true
 ENV COMPOSER_GLOBAL_INSTALL ${COMPOSER_GLOBAL_INSTALL}
 RUN if [ ${COMPOSER_GLOBAL_INSTALL} = true ]; then \

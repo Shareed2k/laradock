@@ -207,7 +207,6 @@ services:
             - ./logs/websocket:/srv/logs
         ports:
             - "8080:8080"
-
 ### Laravel Application Code Container ######################
 
     volumes_source:
