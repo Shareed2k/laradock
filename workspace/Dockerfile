@@ -54,20 +54,6 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
 ;fi
 
 #####################################
-# MongoDB:
-#####################################
-
-# Check if Mongo needs to be installed
-ARG INSTALL_MONGO=true
-ENV INSTALL_MONGO ${INSTALL_MONGO}
-RUN if [ ${INSTALL_MONGO} = true ]; then \
-    # Install the mongodb extension
-    pecl install mongodb && \
-    echo "extension=mongodb.so" >> /etc/php/7.0/cli/php.ini \
-;fi
-
-#####################################
-<<<<<<< HEAD
 # Compass:
 #####################################
 
@@ -82,8 +68,19 @@ RUN if [ ${INSTALL_COMPASS} = true ]; then \
 ;fi
 
 #####################################
-=======
->>>>>>> develop
+# MongoDB:
+#####################################
+
+# Check if Mongo needs to be installed
+ARG INSTALL_MONGO=true
+ENV INSTALL_MONGO ${INSTALL_MONGO}
+RUN if [ ${INSTALL_MONGO} = true ]; then \
+    # Install the mongodb extension
+    pecl install mongodb && \
+    echo "extension=mongodb.so" >> /etc/php/7.0/cli/php.ini \
+;fi
+
+#####################################
 # Non-Root User:
 #####################################
 
@@ -92,23 +89,12 @@ ARG PUID=1000
 ARG PGID=1000
 RUN groupadd -g $PGID laradock && \
     useradd -u $PUID -g laradock -m laradock
-    
-<<<<<<< HEAD
-# Now switch to our laradock user for the rest of user setup
-USER laradock
 
-=======
->>>>>>> develop
 #####################################
 # Composer:
 #####################################
 
 # Add the composer.json
-<<<<<<< HEAD
-ADD ./composer.json /home/laradock/.composer/composer.json
-
-# Check if global install need to be runned
-=======
 COPY ./composer.json /home/laradock/.composer/composer.json
 
 # Make sure that ~/.composer belongs to laradock
@@ -116,7 +102,6 @@ RUN chown -R laradock:laradock /home/laradock/.composer
 USER laradock
 
 # Check if global install need to be ran
->>>>>>> develop
 ARG COMPOSER_GLOBAL_INSTALL=true
 ENV COMPOSER_GLOBAL_INSTALL ${COMPOSER_GLOBAL_INSTALL}
 RUN if [ ${COMPOSER_GLOBAL_INSTALL} = true ]; then \

@@ -14,6 +14,6 @@ RUN npm dedupe
 
 WORKDIR /srv
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
