@@ -49,8 +49,11 @@ services:
         ports:
             - "80:80"
             - "443:443"
+            - "8443:8443"
+            - "8080:8080"
         links:
             - php-fpm
+            - websocket
 
 ### Apache Server Container ##################################
 
@@ -205,8 +208,8 @@ services:
         volumes:
             - ./websocket/socket.server.js:/srv/socket.js
             - ./logs/websocket:/srv/logs
-        ports:
-            - "8080:8080"
+        expose:
+            - "3000"
 ### Laravel Application Code Container ######################
 
     volumes_source:
